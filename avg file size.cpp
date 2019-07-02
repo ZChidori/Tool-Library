@@ -1,3 +1,5 @@
+//Calculate the average size of files in a folder.
+//Enter a folder with some subfolder,in which are whole normal files.
 #include<iostream>
 #include<fstream>
 #include<unistd.h>
