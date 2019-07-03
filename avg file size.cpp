@@ -1,5 +1,6 @@
-//输入同目录下的另一个文件夹名，计算其下子文件夹内文件的平均文件大小。
+//输入同目录下的另一个文件夹名，计算其下子文件夹内文件的平均文件大小，记录大于指定大小的文件夹。
 #define PATHBUF 100
+#define DIRLIMIT 150
 #include<iostream>
 #include<fstream>
 #include<unistd.h>
@@ -61,7 +62,7 @@ int main()
             i++;
         }
         int avs=size/i/1000;
-        if(avs>150)
+        if(avs>DIRLIMIT)
         {
             info *targetdir=new info(avs,subdirname);
             dirinfo.push_back(*targetdir);
