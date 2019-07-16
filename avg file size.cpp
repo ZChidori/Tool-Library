@@ -20,7 +20,7 @@ struct info
     int avs;
     char dir[PATHBUF];
 };
-bool sortfun(const info a,const info b)
+inline bool sortfun(const info a,const info b)
 {
     return a.avs>b.avs;
 }
