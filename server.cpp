@@ -2,7 +2,7 @@
 //Creat a socket.
 //Bind socket to ip and port.
 //Wait for connect request.
-//Return 
+//Return.
 #include"stdafx.h"
 #include<conio.h>
 #include<windows.h>
