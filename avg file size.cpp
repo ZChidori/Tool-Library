@@ -9,7 +9,6 @@
 #include<string.h>
 #include<vector>
 #include<algorithm>
-using namespace std;
 struct info
 {
     info(int diravs,char dirname[])
@@ -27,10 +26,10 @@ inline bool sortfun(const info a,const info b)
 int main()
 {
     char *path=getcwd(NULL,PATHBUF),dname[PATHBUF];
-    cin>>dname;
+    std::cin>>dname;
     strcat(path,"/");
     strcat(path,dname);
-    cout<<path<<endl;
+    std::cout<<path<<std::endl;
     vector<info>dirinfo;
     struct dirent *entry;
     struct stat statbuf;
@@ -70,8 +69,8 @@ int main()
         }
     }
     sort(dirinfo.begin(),dirinfo.end(),sortfun);
-    ofstream n;
-    n.open("info.txt",ios::trunc);
-    for(vector<info>::iterator t=dirinfo.begin();t!=dirinfo.end();n<<t->dir<<' '<<t++->avs<<'\n');
+    std::ofstream n;
+    n.open("info.txt",std::ios::trunc);
+    for(std::vector<info>::iterator t=dirinfo.begin();t!=dirinfo.end();n<<t->dir<<' '<<t++->avs<<'\n');
     return 0;
 }
