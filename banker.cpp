@@ -1,9 +1,7 @@
-#include"stdafx.h"
 #include<string>
 #include<iostream>
 #include<ctime>
 #include<vector>
-using namespace std;
 const int J=4,P=3;
 int available[J],pid=0,turn=0;
 struct pcb
@@ -11,8 +9,8 @@ struct pcb
 	int id,counter;
 	bool finish;
 	int allocation[J],need[J],currentrequest[J],distribution[J];
-	vector<int> restoretime,currentresource;
-	vector<vector<int>> historyresource;
+	std::vector<int> restoretime,currentresource;
+	std::vector<std::vector<int>> historyresource;
 	pcb()
 	{
 		counter=0;
@@ -49,7 +47,7 @@ struct pcb
 			return "已完成";
 		int i=0;
 		char a='a';
-		for(cout<<endl<<"\t进程"<<++j<<"："<<endl,i=0;i<J;++i)
+		for(std::cout<<std::endl<<"\t进程"<<++j<<"："<<std::endl,i=0;i<J;++i)
 		{
 			bool f=false;
 			int count=0;
@@ -73,7 +71,8 @@ struct pcb
 						break;
 					}
 				count++;
-			}while(!f);
+			}
+			while(!f);
 			for(cout<<"\t\t\t共需\t本次需\t持有",i=0;i<J;cout<<'\t'<<allocation[i],++i)
 			{
 				cout<<endl<<"\t\t资源"<<a++<<'\t'<<need[i]<<"\t0";
@@ -104,68 +103,64 @@ struct pcb
 			if(need[i]!=0)
 			{
 				counter=0;
-				goto r;
+				int c=rand()%4;
+				restoretime.push_back(c);
+				return "成功";
 			}
 		finish=true;
 		return "本次完成";
-	r:
-		int c=rand()%4;
-		restoretime.push_back(c);
-		return "成功";
 	}
 };
 void printavailable()
 {
 	int i=0;
 	char a='a';
-	for(cout<<"\n系统资源数："<<endl<<'\t';i<J-1;cout<<a++<<'\t',++i);
-	for(cout<<a<<endl<<'\t',i=0;i<J-1;cout<<available[i]<<'\t',++i);
-	cout<<available[i]<<endl;
+	for(std::cout<<"\n系统资源数："<<std::endl<<'\t';i<J-1;std::cout<<a++<<'\t',++i);
+	for(std::cout<<a<<endl<<'\t',i=0;i<J-1;std::cout<<available[i]<<'\t',++i);
+	std::cout<<available[i]<<std::endl;
 }
 int main()
 {
 	srand((unsigned int)time(nullptr));
 	int i=0;
 	for(;i<J;available[i]=(rand()%6)+10,++i);
-	for(pcb b[P];1;cout<<endl)
+	for(pcb b[P];1;std::cout<<std::endl)
 	{
-		for(cout<<"第"<<++turn<<"次调度："<<endl,printavailable(),i=0;i<P;++i)
+		for(std::cout<<"第"<<++turn<<"次调度："<<std::endl,printavailable(),i=0;i<P;++i)
 		{
 			string t=b[i].request(i);
 			if(t=="输入资源过多"||t=="系统资源不足"||t=="未分配资源")
-				cout<<"\n\t"<<t<<endl;
+				std::cout<<"\n\t"<<t<<std::endl;
 			if(t=="已完成")
-				cout<<"\n\t进程"<<i+1<<"：完成"<<endl;
+				std::cout<<"\n\t进程"<<i+1<<"：完成"<<std::endl;
 			if(t=="成功")
 			{
-				cout<<"\n\t分配成功，将于"<<b[i].restoretime[b[i].restoretime.size()-1]<<"次调度后归还"<<endl;
+				std::cout<<"\n\t分配成功，将于"<<b[i].restoretime[b[i].restoretime.size()-1]<<"次调度后归还"<<std::endl;
 				printavailable();
 			}
 		}
 		char a;
-		for(i=0;i<P;b[i].restore(),cout<<endl,++i)
+		for(i=0;i<P;b[i].restore(),std::cout<<std::endl,++i)
 		{
 			a='a';
-			cout<<endl<<"进程"<<i+1<<"：";
-			cout<<endl<<"\t\t持有\t还需";
-			for(int j=0;j<J;cout<<endl<<"\t资源"<<a++<<'\t'<<b[i].allocation[j]<<'\t'<<b[i].need[j],++j);
+			std::cout<<std::endl<<"进程"<<i+1<<"：\n\t\t持有\t还需";
+			for(int j=0;j<J;std::cout<<std::endl<<"\t资源"<<a++<<'\t'<<b[i].allocation[j]<<'\t'<<b[i].need[j],++j);
 		}
 		for(i=0;i<P;++i)
 			if(!b[i].finish)
 				break;
 		if(i==P)
 		{
-			for(cout<<"\n调度完成"<<endl,printavailable(),i=0;i<P;cout<<endl,++i)
+			for(std::cout<<"\n调度完成"<<std::endl,printavailable(),i=0;i<P;std::cout<<std::endl,++i)
 			{
 				a='a';
-				cout<<endl<<"进程"<<i+1<<"：";
-				cout<<endl<<"\t\t持有\t还需";
-				for(int j=0;j<J;cout<<endl<<"\t资源"<<a++<<'\t'<<b[i].allocation[j]<<'\t'<<b[i].need[j],++j);
+				std::cout<<std::endl<<"进程"<<i+1<<"：\n\t\t持有\t还需";
+				for(int j=0;j<J;std::cout<<std::endl<<"\t资源"<<a++<<'\t'<<b[i].allocation[j]<<'\t'<<b[i].need[j],++j);
 			}
 			break;
 		}
 	}
-	cout<<'\n';
-	system("pause");
+	std::cout<<'\n';
+	std::cin.get();
 	return 0;
 }
