@@ -47,7 +47,7 @@ struct pcb
 			return "已完成";
 		int i=0;
 		char a='a';
-		for(std::cout<<std::endl<<"\t进程"<<++j<<"："<<std::endl,i=0;i<J;++i)
+		for(std::cout<<"\n\t进程"<<++j<<"："<<std::endl;i<J;++i)
 		{
 			bool f=false;
 			int count=0;
@@ -73,21 +73,21 @@ struct pcb
 				count++;
 			}
 			while(!f);
-			for(cout<<"\t\t\t共需\t本次需\t持有",i=0;i<J;cout<<'\t'<<allocation[i],++i)
+			for(std::cout<<"\t\t\t共需\t本次需\t持有",i=0;i<J;std::cout<<'\t'<<allocation[i],++i)
 			{
-				cout<<endl<<"\t\t资源"<<a++<<'\t'<<need[i]<<"\t0";
+				std::cout<<"\n\t\t资源"<<a++<<'\t'<<need[i]<<"\t0";
 				if(currentrequest[i]!=0)
-					cout<<'-'<<currentrequest[i];
+					std::cout<<'-'<<currentrequest[i];
 			}
-			for(currentresource.clear(),cout<<'\n'<<endl,a='a',i=0;i<J;++a,++i)
+			for(currentresource.clear(),std::cout<<'\n'<<std::endl,a='a',i=0;i<J;++a,++i)
 			{
 				if(currentrequest[i]==0)
 				{
 					distribution[i]=0;
 					continue;
 				}
-				cout<<"\t\t分配资源"<<a<<"数：";
-				cin>>distribution[i];
+				std::cout<<"\t\t分配资源"<<a<<"数：";
+				std::cin>>distribution[i];
 				if(distribution[i]>available[i]||distribution[i]>currentrequest[i])
 					return "输入资源过多";
 			}
@@ -115,8 +115,8 @@ void printavailable()
 {
 	int i=0;
 	char a='a';
-	for(std::cout<<"\n系统资源数："<<std::endl<<'\t';i<J-1;std::cout<<a++<<'\t',++i);
-	for(std::cout<<a<<endl<<'\t',i=0;i<J-1;std::cout<<available[i]<<'\t',++i);
+	for(std::cout<<"\n系统资源数：\n\t";i<J-1;std::cout<<a++<<'\t',++i);
+	for(std::cout<<a<<"\n\t",i=0;i<J-1;std::cout<<available[i]<<'\t',++i);
 	std::cout<<available[i]<<std::endl;
 }
 int main()
@@ -143,8 +143,8 @@ int main()
 		for(i=0;i<P;b[i].restore(),std::cout<<std::endl,++i)
 		{
 			a='a';
-			std::cout<<std::endl<<"进程"<<i+1<<"：\n\t\t持有\t还需";
-			for(int j=0;j<J;std::cout<<std::endl<<"\t资源"<<a++<<'\t'<<b[i].allocation[j]<<'\t'<<b[i].need[j],++j);
+			std::cout<<"\n进程"<<i+1<<"：\n\t\t持有\t还需";
+			for(int j=0;j<J;std::cout<<"\n\t资源"<<a++<<'\t'<<b[i].allocation[j]<<'\t'<<b[i].need[j],++j);
 		}
 		for(i=0;i<P;++i)
 			if(!b[i].finish)
@@ -154,8 +154,8 @@ int main()
 			for(std::cout<<"\n调度完成"<<std::endl,printavailable(),i=0;i<P;std::cout<<std::endl,++i)
 			{
 				a='a';
-				std::cout<<std::endl<<"进程"<<i+1<<"：\n\t\t持有\t还需";
-				for(int j=0;j<J;std::cout<<std::endl<<"\t资源"<<a++<<'\t'<<b[i].allocation[j]<<'\t'<<b[i].need[j],++j);
+				std::cout<<"\n进程"<<i+1<<"：\n\t\t持有\t还需";
+				for(int j=0;j<J;std::cout<<"\n\t资源"<<a++<<'\t'<<b[i].allocation[j]<<'\t'<<b[i].need[j],++j);
 			}
 			break;
 		}
