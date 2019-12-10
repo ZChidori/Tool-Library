@@ -2,12 +2,11 @@
 #include<thread>
 #include<mutex>
 #include<vector>
-using namespace std;
 int main()
 {
 	srand((unsigned int)time(nullptr));
 	bool f=false;
-	vector<int> r,s,t;
+	std::vector<int> r,s,t;
 	int i=0,y=0,z=0;
 	thread a([&r,&z]()
 	{
@@ -16,8 +15,7 @@ int main()
 			mutex m;
 			m.lock();
 			r.push_back(rand()%5);
-			++z;
-			printf("生产第%d个数据：%d\n",z,r[r.size()-1]);
+			std::cout<<"生产第"<<++z<<"个数据："<<r[r.size()-1])<<std::endl;
 			m.unlock();
 		}
 	}),b([&r,&s]()
@@ -26,7 +24,7 @@ int main()
 		{
 			mutex m;
 			m.lock();
-			printf("消费者进程1获得了数据：%d\n",r[0]);
+			std::cout<<"消费者进程1获得了数据："<<r[0]<<std::endl;
 			s.push_back(r[0]);
 			r.erase(r.begin());
 			m.unlock();
@@ -37,7 +35,7 @@ int main()
 		{
 			mutex m;
 			m.lock();
-			printf("消费者进程2获得了数据：%d\n",r[0]);
+			std::cout<<"消费者进程2获得了数据："<<r[0]<<std::endl;
 			t.push_back(r[0]);
 			r.erase(r.begin());
 			m.unlock();
@@ -47,8 +45,8 @@ int main()
 	b.join();
 	c.join();
 	for(;i<s.size();y+=s[i++]);
-	for(cout<<"消费者进程1数据和："<<y<<endl,i=y=0;i<t.size();y+=t[i++]);
-	cout<<"消费者进程2数据和："<<y<<endl;
-	system("pause");
-    return 0;
+	for(std::cout<<"消费者进程1数据和："<<y<<std::endl,i=y=0;i<t.size();y+=t[i++]);
+	std::cout<<"消费者进程2数据和："<<y<<std::endl;
+	std::cin.get();
+	return 0;
 }
